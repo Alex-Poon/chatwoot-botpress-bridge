@@ -28,6 +28,8 @@ class Chatwoot::ReceiveEvent < Micro::Case
       botpress_responses = Chatwoot::SendToBotpress.call(event: event, botpress_endpoint: botpress_endpoint, botpress_bot_id: botpress_bot_id)
       botpress_responses.data['responses'].each do | response |
         result = Chatwoot::SendToChatwoot.call(event: event, botpress_response: response)
+        logger.info "RESPONSE TIME"
+        logger.info result
         if result.failure?
           Failure result: { message: 'Error send to chatwoot' }
         end
