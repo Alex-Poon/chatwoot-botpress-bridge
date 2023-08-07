@@ -35,6 +35,8 @@ class Chatwoot::ReceiveEvent < Micro::Case
         sleep(ENV['CHATWOOT_MESSAGES_DELAY'].to_i) if ENV['CHATWOOT_MESSAGES_DELAY']
       end
 
+      logger.info botpress_responses.data
+
       Success result: { botpress: botpress_responses.data , botpress_bot_id: botpress_bot_id } 
     else
       Failure result: { message: 'Invalid event' }
